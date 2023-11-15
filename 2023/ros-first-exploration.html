@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>drindr's site - ros neotic doc reading note</title>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Pelican" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/theme/css/rdark.css" />
+  <link rel="stylesheet" type="text/css" href="/theme/css/main.css" />
+  <link href="/" type="application/atom+xml" rel="alternate" title="drindr's site ATOM Feed" /><!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- Using MathJax, with the delimiters $ -->
+  <!-- Conflict with pygments for the .mo and .mi -->
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  "HTML-CSS": {
+  styles: {
+  ".MathJax .mo, .MathJax .mi": {color: "black ! important"}}
+  },
+  tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\\\)']],processEscapes: true}
+  });
+</script>
+
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+
+
+
+
+
+    <meta name="tags" content="ros" />
+
+</head>
+
+<body>
+  <header>
+    <h1><a href="/">drindr's site</a>
+    </h1>
+  </header>
+  <nav>
+    <ul>
+        <li><a href="/category/about.html">about</a></li>|
+        <li class="active" ><a href="/category/notes.html">notes</a></li>|
+    </ul>
+  </nav>
+  <main>
+  <header>
+    <h1 class="entry-title">
+      <a href="/2023/ros-first-exploration.html" rel="bookmark"
+         title="Permalink to ros neotic doc reading note">ros neotic doc reading note</a></h1>
+ 
+  </header>
+  <footer class="post-info">
+    <time class="published" datetime="2023-11-14T23:30:00+08:00">
+      Tue 14 November 2023
+    </time>
+    <time class="modified" datetime="2023-11-14T23:30:00+08:00">
+      Tue 14 November 2023
+    </time>
+    <address class="vcard author">
+      By           <a class="url fn" href="/author/drindr.html">DrinDr</a>
+    </address>
+    <div class="category">
+        Category: <a href="/category/notes.html">notes</a>
+    </div>
+    <div class="tags">
+        Tags:
+            <a href="/tag/ros.html">ros</a>
+    </div>
+  </footer><!-- /.post-info -->
+  <article>
+    <ol>
+<li>build system: catkin, efficient sharing ROS-based code(rosbuild deprecated)  <ul>
+<li>cross platform(even not support Arch well, damm), implemented as custom CMake macros along with some Python.  </li>
+<li><code>catkin_make</code> to generate the 'build' and 'devel' folder  </li>
+<li>sourcing the ./devel/setup.sh to overlay the workspace on top of the env  </li>
+<li>workspace structure:
+<div class="highlight"><pre>
+workspace_folder/         -- WORKSPACE
+  src/                    -- SOURCE SPACE
+    CMakeLists.txt        -- The 'toplevel' CMake file
+    package_1/
+      CMakeLists.txt
+      package.xml
+      ...
+    package_n/
+      CATKIN_IGNORE       -- Optional empty file to exclude package_n from being processed
+      CMakeLists.txt
+      package.xml
+      ...
+  build/                  -- BUILD SPACE
+    CATKIN_IGNORE         -- Keeps catkin from walking this directory
+  devel/                  -- DEVELOPMENT SPACE (set by CATKIN_DEVEL_PREFIX)
+    bin/
+    etc/
+    include/
+    lib/
+    share/
+    .catkin
+    env.bash
+    setup.bash
+    setup.sh
+    ...
+  install/                -- INSTALL SPACE (set by CMAKE_INSTALL_PREFIX)
+    bin/
+    etc/
+    include/
+    lib/
+    share/
+    .catkin           <br>
+    env.bash
+    setup.bash
+    setup.sh
+    ...
+</pre></div></li>
+</ul>
+</li>
+<li>filesystem<br>
+<code>rospack find [package_name]</code><br>
+<code>roscd &lt;package&gt;[/subdir]</code> go to the INSTALL_PATH/share/\&lt;package&gt;/subdir<br>
+<code>rosls</code> is similar
+    <code>roscp [package_name] [file_to_path] [copy_path]</code>  </li>
+<li>catkin pack<br>
+    catkin compliant package.xml<br>
+    CMakelists.txt which uses catkin<br>
+<code>catkin_create_pkg &lt;name&gt; &lt;...deps&gt;</code><br>
+    deps(build_depend, exec_depend, test_depend) are defined in package.xml<br>
+<code>catkin_make [make_target] [-DCMAKE_VAIRIABLES=...]</code></li>
+<li>graph concepts<ul>
+<li>nodes: a node is an executable that uses ROS to communicate with other nodes  <ul>
+<li><code>rosnode list</code><br>
+<code>rosnode info [node_name]</code></li>
+<li><code>rosrun [package_name] [node_name]</code>    - messages: ROS data type used when subscribing or publishing to a topic</li>
+</ul>
+</li>
+<li>topics: node can publish msgs to a topic and subscribe to a topic to receive msgs<ul>
+<li><code>rostopic</code><br>
+<code>bw</code> for bandwidth,<br>
+<code>echo [topic]</code> for msgs,<br>
+<code>hz [topic]</code> for publishing rate,<br>
+<code>list</code> for info about active topic,<br>
+<code>pub -1 [topic] [msg_type] -- [args]</code> to publish data to topic, <code>-1</code> for only publishing once,<br>
+<code>type [topic]</code> for topic type    </li>
+</ul>
+</li>
+<li>master: ROS equivalent of stdout/stderr</li>
+<li>rescore: master + rosout + parameter server  </li>
+</ul>
+</li>
+<li>rqt  <ul>
+<li>rqt_console: attaching to ROS's logging framework to display log</li>
+<li>rqt_logger_level: to change the verbosity level</li>
+</ul>
+</li>
+<li>launch<ul>
+<li>create 'launch' folder in the pack folder  </li>
+<li>create <file_name>.launch file  </li>
+<li><code>roslaunch [package_name] [filename.launch]</code> to start nodes as defined</li>
+</ul>
+</li>
+<li>rosed: editor</li>
+<li>msg and srv<ul>
+<li>msg folder (data package form?)<ul>
+<li>&lt;msg_name&gt;.msg</li>
+<li>field_type field_name</li>
+<li>complete the deps</li>
+</ul>
+</li>
+<li><code>rossrv show [srv_type]</code>  </li>
+</ul>
+</li>
+<li>publisher&amp;subscriber implement</li>
+<li>service&amp;client implement</li>
+</ol>
+  </article>
+  </main>
+  <footer>
+    <hr />
+    <address id="about" class="vcard body">
+      Proudly powered by <a href="https://getpelican.com/">Pelican</a>,
+      which takes great advantage of <a href="https://www.python.org/">Python</a>.
+    </address><!-- /#about -->
+  </footer>
+</body>
+
+</html>

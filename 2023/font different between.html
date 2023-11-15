@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>drindr's site - font question in different browser</title>
+  <meta charset="utf-8" />
+  <meta name="generator" content="Pelican" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="/theme/css/rdark.css" />
+  <link rel="stylesheet" type="text/css" href="/theme/css/main.css" />
+  <link href="/" type="application/atom+xml" rel="alternate" title="drindr's site ATOM Feed" /><!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <!-- Using MathJax, with the delimiters $ -->
+  <!-- Conflict with pygments for the .mo and .mi -->
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  "HTML-CSS": {
+  styles: {
+  ".MathJax .mo, .MathJax .mi": {color: "black ! important"}}
+  },
+  tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\\\)']],processEscapes: true}
+  });
+</script>
+
+  <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+
+
+
+
+
+    <meta name="tags" content="font" />
+    <meta name="tags" content="web" />
+
+</head>
+
+<body>
+  <header>
+    <h1><a href="/">drindr's site</a>
+    </h1>
+  </header>
+  <nav>
+    <ul>
+        <li><a href="/category/about.html">about</a></li>|
+        <li class="active" ><a href="/category/notes.html">notes</a></li>|
+    </ul>
+  </nav>
+  <main>
+  <header>
+    <h1 class="entry-title">
+      <a href="/2023/font different between.html" rel="bookmark"
+         title="Permalink to font question in different browser">font question in different browser</a></h1>
+ 
+  </header>
+  <footer class="post-info">
+    <time class="published" datetime="2023-10-10T23:20:00+08:00">
+      Tue 10 October 2023
+    </time>
+    <time class="modified" datetime="2023-10-10T23:20:00+08:00">
+      Tue 10 October 2023
+    </time>
+    <address class="vcard author">
+      By           <a class="url fn" href="/author/drindr.html">DrinDr</a>
+    </address>
+    <div class="category">
+        Category: <a href="/category/notes.html">notes</a>
+    </div>
+    <div class="tags">
+        Tags:
+            <a href="/tag/font.html">font</a>
+            <a href="/tag/web.html">web</a>
+    </div>
+  </footer><!-- /.post-info -->
+  <article>
+    <p>While i try to configure the theme of this static web, i found that the font "monospace" is totally different in firefox and edge.  </p>
+<p>At first, i noticed that the monospace font is different between them.
+so i import the font from <a href="https://fonts.googleapis.com/css?family=Noto+Sans+Mono">googleapi</a> to ensure the web use the same font in different browser.  </p>
+<p>However, it did not being repaired perfectly. The apearance of the same font is different as well.  </p>
+<p>In fact, there is <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Cascade">user agent style</a> for browser to render a web defaultly. agent style and Cascade mechanism in different browser are varied. When i add <code>body{font-weight: 400;}</code>, the <code>&lt;h2&gt;</code> tag in firefox can successfully inherit automatically, but in edge it will consist on its agent style due to the different mechanism.  </p>
+<p>in the end, i use the <code>*</code> to select all the attributes in stylesheet which is a bit hacky.
+anyway, it works nearly perfect regardless a little different still remain. </p>
+  </article>
+  </main>
+  <footer>
+    <hr />
+    <address id="about" class="vcard body">
+      Proudly powered by <a href="https://getpelican.com/">Pelican</a>,
+      which takes great advantage of <a href="https://www.python.org/">Python</a>.
+    </address><!-- /#about -->
+  </footer>
+</body>
+
+</html>

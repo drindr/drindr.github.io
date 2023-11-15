@@ -5,15 +5,17 @@
 }
 
 body {
-    font-family: 'Noto Sans MONO';
-    font-size: 100%;
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+    font-size: 18px;
+    line-height: 1.5;
     background-color: white;
     color: #111;
-    width: 80%;
+    width: 95%;
+    max-width:930px;
     min-width: 400px;
     min-height: 200px;
     padding: 1em;
-    margin: 5% 10%;
+    margin: 5% auto;
     border: thin solid gray;
     border-radius: 5px;
     display: block;
@@ -89,6 +91,6 @@ nav>ul>li {
 }
 
 pre {
-    margin: 2em 1em 2em 4em;
+    margin: 0.5em 1em 1em 4em;
     white-space: pre-wrap;
 }
