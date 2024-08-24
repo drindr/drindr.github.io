@@ -4,6 +4,7 @@ author: "drindr"
 date: "2024-08-24"
 categories: [posts]
 ---
+![](image.png)
 
 #### background
 I am an Arch user motivated by its super active community. However, many stuff in academy or industry extremely those about Robotics are designed for the Ubuntu. 
@@ -147,3 +148,7 @@ at least it runs well on my machine
 ```bash
 export DISPLAY=:1
 ```
+
+### reference
+[https://wiki.archlinux.org/title/Systemd-nspawn](https://wiki.archlinux.org/title/Systemd-nspawn)  
+[https://www.kxxt.dev/blog/systemd-nspawn-container-for-ros](https://www.kxxt.dev/blog/systemd-nspawn-container-for-ros)  

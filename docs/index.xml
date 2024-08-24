@@ -21,6 +21,7 @@
 
 
 
+<p><img src="https://blog.drindr.mem/posts/systemd-nspawn-dev-env/image.png" class="img-fluid"></p>
 <section id="background" class="level4">
 <h4 class="anchored" data-anchor-id="background">background</h4>
 <p>I am an Arch user motivated by its super active community. However, many stuff in academy or industry extremely those about Robotics are designed for the Ubuntu. The ROS AUR package is out-of-date. It is difficult to maintain a package with so many dependencies. Furthermore, many libraries about pointcloud processing and navigation are developed under ubuntu, which means developers of those libs only maintain for Ubuntu usually.</p>
@@ -2096,6 +2097,11 @@ background-color: null;
 font-style: inherit;">DISPLAY</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>:1</span></code></pre></div>
+</section>
+<section id="reference" class="level3">
+<h3 class="anchored" data-anchor-id="reference">reference</h3>
+<p><a href="https://wiki.archlinux.org/title/Systemd-nspawn">https://wiki.archlinux.org/title/Systemd-nspawn</a><br>
+<a href="https://www.kxxt.dev/blog/systemd-nspawn-container-for-ros">https://www.kxxt.dev/blog/systemd-nspawn-container-for-ros</a></p>
 
 
 </section>
