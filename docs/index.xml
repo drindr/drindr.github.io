@@ -12,28 +12,6 @@
 <generator>quarto-1.5.56</generator>
 <lastBuildDate>Fri, 23 Aug 2024 16:00:00 GMT</lastBuildDate>
 <item>
-  <title>Post With Code</title>
-  <dc:creator>Harlow Malloc</dc:creator>
-  <link>https://blog.drindr.mem/posts/post-with-code/</link>
-  <description><![CDATA[ 
-
-
-
-
-
-<p>This is a post with executable code.</p>
-
-
-
- ]]></description>
-  <category>news</category>
-  <category>code</category>
-  <category>analysis</category>
-  <guid>https://blog.drindr.mem/posts/post-with-code/</guid>
-  <pubDate>Fri, 23 Aug 2024 16:00:00 GMT</pubDate>
-  <media:content url="https://blog.drindr.mem/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
-</item>
-<item>
   <title>the dev environment with systemd-nspawn</title>
   <dc:creator>drindr </dc:creator>
   <link>https://blog.drindr.mem/posts/systemd-nspawn-dev-env/</link>
