@@ -1,0 +1,14 @@
+---
+title: "About"
+image: profile.svg
+about:
+  template: jolla
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/drindr
+
+---
+
+## WHO AM I?
+A Sleepy Student?

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://blog.drindr.mem/index.html</loc>
+    <lastmod>2024-08-24T14:25:08.711Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.drindr.mem/posts/systemd-nspawn-dev-env/index.html</loc>
+    <lastmod>2024-08-24T16:04:20.115Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.drindr.mem/about.html</loc>
+    <lastmod>2024-08-24T14:03:19.691Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.drindr.mem/posts/post-with-code/index.html</loc>
+    <lastmod>2024-08-24T13:46:42.167Z</lastmod>
+  </url>
+</urlset>

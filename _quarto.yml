@@ -1,0 +1,23 @@
+project:
+  type: website
+  output-dir: out
+
+website:
+  title: "drin'site"
+  site-url: https://blog.drindr.mem
+  description: "drin's blog"
+  navbar:
+    right:
+      - about.qmd
+      - icon: rss
+        href: index.xml
+      - icon: github
+        href: https://github.com/drindr
+
+format:
+  html:
+    theme: cyborg
+    css: styles.css
+
+
+
