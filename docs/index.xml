@@ -9,8 +9,54 @@
 <link>https://blog.drindr.mem/</link>
 <atom:link href="https://blog.drindr.mem/index.xml" rel="self" type="application/rss+xml"/>
 <description>drin&#39;s blog</description>
-<generator>quarto-1.5.56</generator>
-<lastBuildDate>Fri, 23 Aug 2024 16:00:00 GMT</lastBuildDate>
+<generator>quarto-1.7.6</generator>
+<lastBuildDate>Sat, 19 Oct 2024 16:00:00 GMT</lastBuildDate>
+<item>
+  <title>iterative closest point(icp)</title>
+  <dc:creator>drindr </dc:creator>
+  <link>https://blog.drindr.mem/posts/icp/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p><em>TBD</em><br>
+<a href="https://www.youtube.com/watch?v=dhzLQfDBx2Q">video site</a></p>
+<p>target: align 2 points into the same frame</p>
+<section id="part1-data-association-svd" class="level2">
+<h2 class="anchored" data-anchor-id="part1-data-association-svd">PART1: Data Association &amp; SVD</h2>
+<ul>
+<li><p>direct and optimal solution: <img src="https://latex.codecogs.com/png.latex?%5Csum%7C%7Cy_n%20-%20%5Cbar%7Bx%7D_n%7C%7C%5E2p_n%20%5Crightarrow%20min"></p>
+<ul>
+<li><p>properties: no initial guess and no better solution exist</p></li>
+<li><p>weighted sums: <img src="https://latex.codecogs.com/png.latex?x_0%20=%20%5Cfrac%7B%5Csum%20x_n%20p_n%7D%7B%5Csum%20p_n%7D"> and <img src="https://latex.codecogs.com/png.latex?y_0%20=%20%5Cfrac%7B%5Csum%20y_n%20p_n%7D%7B%5Csum%20p_n%7D"></p>
+<p>cross-correlation matrix: <img src="https://latex.codecogs.com/png.latex?H%20=%20%5Csum%20(y_n%20-%20y_0)(x_n%20-%20x_0)%5ET%20p_n"></p>
+<p><img src="https://latex.codecogs.com/png.latex?svd(H)%20=%20UDV%5ET"></p>
+<p><img src="https://latex.codecogs.com/png.latex?%5CRightarrow%20R=VU%5ET,%20t%20=%20y_0%20-%20Rx_0"></p></li>
+<li><p>use the local coordinates defined by the point set (set the origin as weighted mean <img src="https://latex.codecogs.com/png.latex?y_0">)</p>
+<p><img src="https://latex.codecogs.com/png.latex?%5Csum%20%7C%7C(y_n%20-%20y_0)%20-%20(R%20x_n%20+%20t%20-%20y_0)%7C%7C%5E2%20p_n%20%5Crightarrow%20min"></p>
+<p>start with <img src="https://latex.codecogs.com/png.latex?%5Cbar%7Bx%7D_n%20-%20y_0%20=%20Rx_n%20+%20t%20-%20y_0"></p>
+<p>rewrite the translation <img src="https://latex.codecogs.com/png.latex?%5Cbar%7Bx%7Dn%20%20-%20y_0%20=%20R(x_n%20+%20R%5ETt%20-%20R%5ETy_0)"></p>
+<p>introduce a <em>new variable</em> <img src="https://latex.codecogs.com/png.latex?x_0%20=%20R%5ETy_0%20-%20R%5ETt"></p>
+<p><img src="https://latex.codecogs.com/png.latex?%5Cbar%7Bx%7D_n%20-%20y_0%20=%20R(x_n%20-%20x_0)"></p>
+<p>minimization problem: <img src="https://latex.codecogs.com/png.latex?R%5E*,%20x%5E*_0%20=%20%5Cunderset%7BR,%20x_0%7D%7Bargmin%7D%5Csum%20%7C%7C%20y_n%20-%20y_0%20-%20R(x_n%20-%20x_0)%20%7C%7C%5E2%20p_n"></p>
+<p>objective function: <img src="https://latex.codecogs.com/png.latex?%5CPhi(x_0,%20R)%20=%20%5Csum%20%5B(y_n%20-%20y_0)%20-%20R(x_n%20-%20x_0)%5D%5ET%5B(y_n%20-%20y_0)%20-%20R(x_n%20-%20x_0)%5D%20p_n"></p>
+<p>let <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B%5Cdelta%20%5CPhi%7D%7B%5Cdelta%20x_0%7D%20=%200%20%5CRightarrow%20x_0%20=%20%5Cfrac%7B%5Csum%20x_np_n%7D%7Bp_n%7D"></p>
+<p>then let <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B%5Cdelta%20%5CPhi%7D%7B%5Cdelta%20x_0%7D%20=%200%20%5CRightarrow%20R%5E*%20=%20%5Cunderset%7BR%7D%7Bargmax%7D%5Csum%20b_n%5ETRa_np_n"> <img src="https://latex.codecogs.com/png.latex?(b_n%20=%20y_n%20-%20y_0,%20a_n%20=%20x_n%20-%20x_0)"></p>
+<p>using the trace?: <img src="https://latex.codecogs.com/png.latex?R%5E*%20=%20%5Cunderset%7BR%7D%7Bargmax%7D%5C%20tr(RH)"></p>
+<p><img src="https://latex.codecogs.com/png.latex?H"> is the covariance matrix: <img src="https://latex.codecogs.com/png.latex?H%20=%20%5Csum%20(a_nb_n%5ET)p_n"></p></li>
+</ul></li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>notes</category>
+  <guid>https://blog.drindr.mem/posts/icp/</guid>
+  <pubDate>Sat, 19 Oct 2024 16:00:00 GMT</pubDate>
+</item>
 <item>
   <title>the dev environment with systemd-nspawn</title>
   <dc:creator>drindr </dc:creator>

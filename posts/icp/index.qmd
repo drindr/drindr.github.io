@@ -1,0 +1,50 @@
+---
+title: "iterative closest point(icp)"
+author: "drindr"
+date: "2024-10-20"
+categories: [notes]
+---
+
+*TBD*  
+[video site](https://www.youtube.com/watch?v=dhzLQfDBx2Q)
+
+target: align 2 points into the same frame
+
+## PART1: Data Association & SVD
+
+-   direct and optimal solution: $\sum||y_n - \bar{x}_n||^2p_n \rightarrow min$
+
+    -   properties: no initial guess and no better solution exist
+
+    -   weighted sums: $x_0 = \frac{\sum x_n p_n}{\sum p_n}$ and $y_0 = \frac{\sum y_n p_n}{\sum p_n}$
+
+        cross-correlation matrix: $H = \sum (y_n - y_0)(x_n - x_0)^T p_n$
+
+        $svd(H) = UDV^T$
+
+        $\Rightarrow R=VU^T, t = y_0 - Rx_0$
+
+    -   use the local coordinates defined by the point set (set the origin as weighted mean $y_0$)
+
+        $\sum ||(y_n - y_0) - (R x_n + t - y_0)||^2 p_n \rightarrow min$
+
+        start with $\bar{x}_n - y_0 = Rx_n + t - y_0$
+
+        rewrite the translation $\bar{x}n  - y_0 = R(x_n + R^Tt - R^Ty_0)$
+
+        introduce a *new variable* $x_0 = R^Ty_0 - R^Tt$
+
+        $\bar{x}_n - y_0 = R(x_n - x_0)$
+
+        minimization problem: $R^*, x^*_0 = \underset{R, x_0}{argmin}\sum || y_n - y_0 - R(x_n - x_0) ||^2 p_n$
+
+        objective function: 
+        $\Phi(x_0, R) = \sum [(y_n - y_0) - R(x_n - x_0)]^T[(y_n - y_0) - R(x_n - x_0)] p_n$
+
+        let $\frac{\delta \Phi}{\delta x_0} = 0 \Rightarrow x_0 = \frac{\sum x_np_n}{p_n}$
+
+        then let $\frac{\delta \Phi}{\delta x_0} = 0 \Rightarrow R^* = \underset{R}{argmax}\sum b_n^TRa_np_n$ $(b_n = y_n - y_0, a_n = x_n - x_0)$
+
+        using the trace?: $R^* = \underset{R}{argmax}\ tr(RH)$
+
+        $H$ is the covariance matrix: $H = \sum (a_nb_n^T)p_n$

@@ -25,6 +25,27 @@
     "href": "index.html",
     "title": "Hello?",
     "section": "",
-    "text": "the dev environment with systemd-nspawn\n\n\n\n\n\n\nposts\n\n\n\n\n\n\n\n\n\nAug 24, 2024\n\n\ndrindr\n\n\n\n\n\n\nNo matching items"
+    "text": "iterative closest point(icp)\n\n\n \n\n\nnotes\n\n\n \n\n\n\n\n\nOct 20, 2024\ndrindr \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nthe dev environment with systemd-nspawn\n\n\n \n\n\nposts\n\n\n \n\n\n\n\n\nAug 24, 2024\ndrindr \n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/icp/index.html",
+    "href": "posts/icp/index.html",
+    "title": "iterative closest point(icp)",
+    "section": "",
+    "text": "TBD\nvideo site\ntarget: align 2 points into the same frame"
+  },
+  {
+    "objectID": "posts/icp/index.html#part1-data-association-svd",
+    "href": "posts/icp/index.html#part1-data-association-svd",
+    "title": "iterative closest point(icp)",
+    "section": "PART1: Data Association & SVD",
+    "text": "PART1: Data Association & SVD\n\ndirect and optimal solution: \\(\\sum||y_n - \\bar{x}_n||^2p_n \\rightarrow min\\)\n\nproperties: no initial guess and no better solution exist\nweighted sums: \\(x_0 = \\frac{\\sum x_n p_n}{\\sum p_n}\\) and \\(y_0 = \\frac{\\sum y_n p_n}{\\sum p_n}\\)\ncross-correlation matrix: \\(H = \\sum (y_n - y_0)(x_n - x_0)^T p_n\\)\n\\(svd(H) = UDV^T\\)\n\\(\\Rightarrow R=VU^T, t = y_0 - Rx_0\\)\nuse the local coordinates defined by the point set (set the origin as weighted mean \\(y_0\\))\n\\(\\sum ||(y_n - y_0) - (R x_n + t - y_0)||^2 p_n \\rightarrow min\\)\nstart with \\(\\bar{x}_n - y_0 = Rx_n + t - y_0\\)\nrewrite the translation \\(\\bar{x}n  - y_0 = R(x_n + R^Tt - R^Ty_0)\\)\nintroduce a new variable \\(x_0 = R^Ty_0 - R^Tt\\)\n\\(\\bar{x}_n - y_0 = R(x_n - x_0)\\)\nminimization problem: \\(R^*, x^*_0 = \\underset{R, x_0}{argmin}\\sum || y_n - y_0 - R(x_n - x_0) ||^2 p_n\\)\nobjective function: \\(\\Phi(x_0, R) = \\sum [(y_n - y_0) - R(x_n - x_0)]^T[(y_n - y_0) - R(x_n - x_0)] p_n\\)\nlet \\(\\frac{\\delta \\Phi}{\\delta x_0} = 0 \\Rightarrow x_0 = \\frac{\\sum x_np_n}{p_n}\\)\nthen let \\(\\frac{\\delta \\Phi}{\\delta x_0} = 0 \\Rightarrow R^* = \\underset{R}{argmax}\\sum b_n^TRa_np_n\\) \\((b_n = y_n - y_0, a_n = x_n - x_0)\\)\nusing the trace?: \\(R^* = \\underset{R}{argmax}\\ tr(RH)\\)\n\\(H\\) is the covariance matrix: \\(H = \\sum (a_nb_n^T)p_n\\)"
+  },
+  {
+    "objectID": "posts/icp/index.html#footnotes",
+    "href": "posts/icp/index.html#footnotes",
+    "title": "iterative closest point(icp)",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nnot understood↩︎"
   }
 ]

@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/icp/index.html",
       "/posts/systemd-nspawn-dev-env/index.html"
     ]
   }
