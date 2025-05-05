@@ -9,8 +9,177 @@
 <link>https://blog.drindr.mem/</link>
 <atom:link href="https://blog.drindr.mem/index.xml" rel="self" type="application/rss+xml"/>
 <description>drin&#39;s blog</description>
-<generator>quarto-1.7.6</generator>
-<lastBuildDate>Sat, 19 Oct 2024 16:00:00 GMT</lastBuildDate>
+<generator>quarto-1.7.29</generator>
+<lastBuildDate>Fri, 04 Apr 2025 16:00:00 GMT</lastBuildDate>
+<item>
+  <title>BLE</title>
+  <dc:creator>drindr </dc:creator>
+  <link>https://blog.drindr.mem/posts/bluetooth-low-energy/ble.html</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<blockquote class="blockquote">
+<p>The BLE protocol is commonly used but complex, so I decided to glance at its framework.</p>
+</blockquote>
+<p><em>TBD</em>: security, sniffer. <a href="https://academy.nordicsemi.com/courses/bluetooth-low-energy-fundamentals/"><em>course site</em></a></p>
+<ul>
+<li>Basic Concepts:
+<ul>
+<li><p>Protocol Stack <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/04/MicrosoftTeams-image-29.png" class="img-fluid" alt="protocol stack diagrams"></p></li>
+<li><p>Host</p>
+<ul>
+<li>L2CAP(Logical Link Control &amp; Adaptaion Protocol): encapsulating service for upper layers</li>
+<li>SMP(Security Manager Protocol): defines and provides secure communication</li>
+<li>ATT(Attribute Protocol): pieces of data exposed to other devices</li>
+<li>GATT(Generic Attribute Profile): sub-procedures for using the the ATT layer</li>
+<li>GAP(Generic Access Profile): devices discovery and connection-related services</li>
+</ul></li>
+<li><p>Controller:</p>
+<ul>
+<li>PHY(Physical Layer): modulate datas onto the waves and receive data from waves</li>
+<li>LL(Link Layer): manage the state(standby, advertising, scanning, initialing, connection) of the radio</li>
+</ul></li>
+<li><p>Roles</p>
+<ul>
+<li>Advertising &amp; Scanning</li>
+<li>Central &amp; Peripheral<br>
+The central scans the packets advertising by the peripherals and can initial a connection by sending a connection request.<br>
+Peripheral generally use less power than central</li>
+<li>Broadcast &amp; Observer Broadcast &amp; Listen advertisement without connection.</li>
+</ul></li>
+<li><p>GATT</p>
+<ul>
+<li><p>Server: store data and provide methods for client to access data.</p></li>
+<li><p>Client: access data on the server</p></li>
+<li><p>Attribute: a standard data representation format</p></li>
+<li><p>The Generic Attribute Profile <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/03/blefund_less1_example_profile-1.png" class="img-fluid" alt="GAP"></p></li>
+<li><p><a href="https://www.bluetooth.com/specifications/specs/">GATT defined by the Bluetooth SIG(Special Interest Group)</a></p></li>
+</ul></li>
+<li><p>Radio Modes</p>
+<ul>
+<li>1M PHY / 2M PHY: xMbps</li>
+<li>coded PHY: S symbols represent 1 bit to achieve longer communication.</li>
+</ul></li>
+</ul></li>
+<li>Advertising
+<ul>
+<li>channels: 40 channels in BLE, 3 primary channels is mainly for advertisement and 37 secondary channels mainly used for data transfer after connecting.</li>
+<li>Scan Interval &amp; Scan Window(the time in each interval)</li>
+<li>Scan Request &amp; Response:
+<ul>
+<li>Request: sent by central to request extra information without adevertising</li>
+<li>Response: respond to a scan request <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/03/blefund_less2_scan_request-2.png" class="img-fluid" alt="schematic diagram"></li>
+</ul></li>
+<li>Extended advertising: the primary advertisement channels are pointing to supplementary information that is being advertised on the secondary advertisement channel.</li>
+<li>types:
+<ul>
+<li>connectable &amp; non-connectable</li>
+<li>scannable &amp; non-scannable</li>
+<li>directed &amp; undirected</li>
+</ul></li>
+<li>Address: a unique 48-bit address
+<ul>
+<li>Public address: pay and register with IEEE registration authority</li>
+<li>Random address:
+<ul>
+<li>static or private</li>
+<li>private: resolvable or non-resolvable<br>
+resolvable: use a pre-shared key IRK(Identity Resolving Key) to generate and resolve the random address.</li>
+</ul></li>
+</ul></li>
+<li>Packet Structure
+<ul>
+<li>PDU(Protocol Data Unit):
+<ul>
+<li>Advertising (channel) PDU</li>
+<li>Data (channel) PDU <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/03/blefund_less2_adv_packet-1.png" class="img-fluid" alt="packet structure"></li>
+</ul></li>
+<li>Advertisement PDU Header <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/04/blefund_less2_PDU_header-.png" class="img-fluid">
+<ul>
+<li>RFU: Reserved for future use</li>
+<li>ChSel: set to 1 if LE Channel Selection Algorithm #2 is supported</li>
+<li>TxAdd: 0/1. transmitter address is public or random</li>
+<li>RxAdd: 0/1. receiver address is public or random</li>
+<li>Length: payload length</li>
+</ul></li>
+<li>Advertisement PDU Payload <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/03/blefund_less2_PDU_payload_2-1.png" class="img-fluid">
+<ul>
+<li>AdvA: Bluetooth address of the advertising device (48bits)</li>
+<li>AdvData: data packet</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>Connection
+<ul>
+<li>Disconnect: by application, by supervision timeout</li>
+<li>Parameters:
+<ul>
+<li>Connection interval<br>
+</li>
+<li>Supervision timeout: successfully receiving the last packet before the connection is considered lost</li>
+<li>Peripheral latency: allow skip waking up for a certain number of connection events if it doesn’t have any data to send</li>
+<li>PHY radio modes: 1/2M, coded PHY</li>
+<li>Data Length &amp; MTU(Maximum Transfer Unit): MTU is the number of bytes that can be sent in one GATT operation. Data Length is the number of bytes can be sent in one BLE packet.
+<ul>
+<li>DLE(Data Length Extension): allow the data length increases from 27 bytes to 251 bytes to save time and power.</li>
+</ul></li>
+<li>Update the connection parameters
+<ul>
+<li>connection interval, supervision timeout and peripheral latency: directed by the central, but the peripheral can request changes</li>
+<li>PHY radio modes, data length and MTU: set to the default values when a connection is first established. Either device can request to update the parameters, the other device will then either its supported values or state it is not supported.</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>Data Exchange in BLE
+<ul>
+<li>GATT operations
+<ul>
+<li>client-initiated: read, write, write without response</li>
+<li>server-initiated: notify, indicate(an acknowledgement is required from client)<br>
+Though the operations initiated by the server, the client is required to enable them first by subscribing the characteristic and enabling either notifications or indications.</li>
+</ul></li>
+<li>ATT layer
+<ul>
+<li>Attributes <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/04/blefund_less4_attribute.png" class="img-fluid">
+<ul>
+<li>Handle: 16-bit unique index in the attribute table assigned by the stack</li>
+<li>UUID: universally unique id tell the attribute type
+<ul>
+<li>First Type: SIG defined 16-bit UUID</li>
+<li>Second Type: vendor-specific 128-bit UUID. Insert custom 16-bit IDs in the base UUID</li>
+</ul></li>
+<li>Permission: sercurity level(encryption and authorization)</li>
+<li>Value: the actual data or the information about other attributes</li>
+</ul></li>
+<li>Services and Characteristics
+<ul>
+<li>Service <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/03/blefund_less4_characteristics_1.png" class="img-fluid" alt="schematic diagram">
+<ul>
+<li>Service declaration attribute: starts a service</li>
+<li>Characteristic definition attribute:
+<ul>
+<li>Characteristic declaration attribute: holds the metadata about the Characteristic value attribute</li>
+<li>Characteristic value attribute: holds the actual user data</li>
+<li>Characteristic descriptor attribute(optional): holds more metadata about the characteristics<br>
+</li>
+<li>CCCD(Client Characteristic Configuration Descriptor): writable for client to enable/disable server-initiated operations notify and indicate</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+
+ ]]></description>
+  <category>posts</category>
+  <guid>https://blog.drindr.mem/posts/bluetooth-low-energy/ble.html</guid>
+  <pubDate>Fri, 04 Apr 2025 16:00:00 GMT</pubDate>
+</item>
 <item>
   <title>iterative closest point(icp)</title>
   <dc:creator>drindr </dc:creator>

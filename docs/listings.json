@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/bluetooth-low-energy/ble.html",
       "/posts/icp/index.html",
       "/posts/systemd-nspawn-dev-env/index.html"
     ]

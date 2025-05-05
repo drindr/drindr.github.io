@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="drindr">
-<meta name="dcterms.date" content="2024-10-20">
+<meta name="dcterms.date" content="2025-04-05">
 
-<title>iterative closest point(icp) – drin’site</title>
+<title>BLE – drin’site</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -70,35 +70,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -145,9 +116,9 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">iterative closest point(icp)</h1>
+      <h1 class="title">BLE</h1>
                                 <div class="quarto-categories">
-                <div class="quarto-category">notes</div>
+                <div class="quarto-category">posts</div>
               </div>
                   </div>
   </div>
@@ -165,7 +136,7 @@ window.Quarto = {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">October 20, 2024</p>
+        <p class="date">April 5, 2025</p>
       </div>
     </div>
     
@@ -184,36 +155,159 @@ window.Quarto = {
 
 
 
-<p><em>TBD</em><br>
-<a href="https://www.youtube.com/watch?v=dhzLQfDBx2Q">video site</a></p>
-<p>target: align 2 points into the same frame</p>
-<section id="part1-data-association-svd" class="level2">
-<h2 class="anchored" data-anchor-id="part1-data-association-svd">PART1: Data Association &amp; SVD</h2>
+<blockquote class="blockquote">
+<p>The BLE protocol is commonly used but complex, so I decided to glance at its framework.</p>
+</blockquote>
+<p><em>TBD</em>: security, sniffer. <a href="https://academy.nordicsemi.com/courses/bluetooth-low-energy-fundamentals/"><em>course site</em></a></p>
 <ul>
-<li><p>direct and optimal solution: <span class="math inline">\(\sum||y_n - \bar{x}_n||^2p_n \rightarrow min\)</span></p>
+<li>Basic Concepts:
 <ul>
-<li><p>properties: no initial guess and no better solution exist</p></li>
-<li><p>weighted sums: <span class="math inline">\(x_0 = \frac{\sum x_n p_n}{\sum p_n}\)</span> and <span class="math inline">\(y_0 = \frac{\sum y_n p_n}{\sum p_n}\)</span></p>
-<p>cross-correlation matrix: <span class="math inline">\(H = \sum (y_n - y_0)(x_n - x_0)^T p_n\)</span></p>
-<p><span class="math inline">\(svd(H) = UDV^T\)</span></p>
-<p><span class="math inline">\(\Rightarrow R=VU^T, t = y_0 - Rx_0\)</span></p></li>
-<li><p>use the local coordinates defined by the point set (set the origin as weighted mean <span class="math inline">\(y_0\)</span>)</p>
-<p><span class="math inline">\(\sum ||(y_n - y_0) - (R x_n + t - y_0)||^2 p_n \rightarrow min\)</span></p>
-<p>start with <span class="math inline">\(\bar{x}_n - y_0 = Rx_n + t - y_0\)</span></p>
-<p>rewrite the translation <span class="math inline">\(\bar{x}n  - y_0 = R(x_n + R^Tt - R^Ty_0)\)</span></p>
-<p>introduce a <em>new variable</em> <span class="math inline">\(x_0 = R^Ty_0 - R^Tt\)</span></p>
-<p><span class="math inline">\(\bar{x}_n - y_0 = R(x_n - x_0)\)</span></p>
-<p>minimization problem: <span class="math inline">\(R^*, x^*_0 = \underset{R, x_0}{argmin}\sum || y_n - y_0 - R(x_n - x_0) ||^2 p_n\)</span></p>
-<p>objective function: <span class="math inline">\(\Phi(x_0, R) = \sum [(y_n - y_0) - R(x_n - x_0)]^T[(y_n - y_0) - R(x_n - x_0)] p_n\)</span></p>
-<p>let <span class="math inline">\(\frac{\delta \Phi}{\delta x_0} = 0 \Rightarrow x_0 = \frac{\sum x_np_n}{p_n}\)</span></p>
-<p>then let <span class="math inline">\(\frac{\delta \Phi}{\delta x_0} = 0 \Rightarrow R^* = \underset{R}{argmax}\sum b_n^TRa_np_n\)</span> <span class="math inline">\((b_n = y_n - y_0, a_n = x_n - x_0)\)</span></p>
-<p>using the trace?: <span class="math inline">\(R^* = \underset{R}{argmax}\ tr(RH)\)</span></p>
-<p><span class="math inline">\(H\)</span> is the covariance matrix: <span class="math inline">\(H = \sum (a_nb_n^T)p_n\)</span></p></li>
+<li><p>Protocol Stack <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/04/MicrosoftTeams-image-29.png" class="img-fluid" alt="protocol stack diagrams"></p></li>
+<li><p>Host</p>
+<ul>
+<li>L2CAP(Logical Link Control &amp; Adaptaion Protocol): encapsulating service for upper layers</li>
+<li>SMP(Security Manager Protocol): defines and provides secure communication</li>
+<li>ATT(Attribute Protocol): pieces of data exposed to other devices</li>
+<li>GATT(Generic Attribute Profile): sub-procedures for using the the ATT layer</li>
+<li>GAP(Generic Access Profile): devices discovery and connection-related services</li>
+</ul></li>
+<li><p>Controller:</p>
+<ul>
+<li>PHY(Physical Layer): modulate datas onto the waves and receive data from waves</li>
+<li>LL(Link Layer): manage the state(standby, advertising, scanning, initialing, connection) of the radio</li>
+</ul></li>
+<li><p>Roles</p>
+<ul>
+<li>Advertising &amp; Scanning</li>
+<li>Central &amp; Peripheral<br>
+The central scans the packets advertising by the peripherals and can initial a connection by sending a connection request.<br>
+Peripheral generally use less power than central</li>
+<li>Broadcast &amp; Observer Broadcast &amp; Listen advertisement without connection.</li>
+</ul></li>
+<li><p>GATT</p>
+<ul>
+<li><p>Server: store data and provide methods for client to access data.</p></li>
+<li><p>Client: access data on the server</p></li>
+<li><p>Attribute: a standard data representation format</p></li>
+<li><p>The Generic Attribute Profile <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/03/blefund_less1_example_profile-1.png" class="img-fluid" alt="GAP"></p></li>
+<li><p><a href="https://www.bluetooth.com/specifications/specs/">GATT defined by the Bluetooth SIG(Special Interest Group)</a></p></li>
+</ul></li>
+<li><p>Radio Modes</p>
+<ul>
+<li>1M PHY / 2M PHY: xMbps</li>
+<li>coded PHY: S symbols represent 1 bit to achieve longer communication.</li>
+</ul></li>
+</ul></li>
+<li>Advertising
+<ul>
+<li>channels: 40 channels in BLE, 3 primary channels is mainly for advertisement and 37 secondary channels mainly used for data transfer after connecting.</li>
+<li>Scan Interval &amp; Scan Window(the time in each interval)</li>
+<li>Scan Request &amp; Response:
+<ul>
+<li>Request: sent by central to request extra information without adevertising</li>
+<li>Response: respond to a scan request <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/03/blefund_less2_scan_request-2.png" class="img-fluid" alt="schematic diagram"></li>
+</ul></li>
+<li>Extended advertising: the primary advertisement channels are pointing to supplementary information that is being advertised on the secondary advertisement channel.</li>
+<li>types:
+<ul>
+<li>connectable &amp; non-connectable</li>
+<li>scannable &amp; non-scannable</li>
+<li>directed &amp; undirected</li>
+</ul></li>
+<li>Address: a unique 48-bit address
+<ul>
+<li>Public address: pay and register with IEEE registration authority</li>
+<li>Random address:
+<ul>
+<li>static or private</li>
+<li>private: resolvable or non-resolvable<br>
+resolvable: use a pre-shared key IRK(Identity Resolving Key) to generate and resolve the random address.</li>
+</ul></li>
+</ul></li>
+<li>Packet Structure
+<ul>
+<li>PDU(Protocol Data Unit):
+<ul>
+<li>Advertising (channel) PDU</li>
+<li>Data (channel) PDU <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/03/blefund_less2_adv_packet-1.png" class="img-fluid" alt="packet structure"></li>
+</ul></li>
+<li>Advertisement PDU Header <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/04/blefund_less2_PDU_header-.png" class="img-fluid">
+<ul>
+<li>RFU: Reserved for future use</li>
+<li>ChSel: set to 1 if LE Channel Selection Algorithm #2 is supported</li>
+<li>TxAdd: 0/1. transmitter address is public or random</li>
+<li>RxAdd: 0/1. receiver address is public or random</li>
+<li>Length: payload length</li>
+</ul></li>
+<li>Advertisement PDU Payload <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/03/blefund_less2_PDU_payload_2-1.png" class="img-fluid">
+<ul>
+<li>AdvA: Bluetooth address of the advertising device (48bits)</li>
+<li>AdvData: data packet</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>Connection
+<ul>
+<li>Disconnect: by application, by supervision timeout</li>
+<li>Parameters:
+<ul>
+<li>Connection interval<br>
+</li>
+<li>Supervision timeout: successfully receiving the last packet before the connection is considered lost</li>
+<li>Peripheral latency: allow skip waking up for a certain number of connection events if it doesn’t have any data to send</li>
+<li>PHY radio modes: 1/2M, coded PHY</li>
+<li>Data Length &amp; MTU(Maximum Transfer Unit): MTU is the number of bytes that can be sent in one GATT operation. Data Length is the number of bytes can be sent in one BLE packet.
+<ul>
+<li>DLE(Data Length Extension): allow the data length increases from 27 bytes to 251 bytes to save time and power.</li>
+</ul></li>
+<li>Update the connection parameters
+<ul>
+<li>connection interval, supervision timeout and peripheral latency: directed by the central, but the peripheral can request changes</li>
+<li>PHY radio modes, data length and MTU: set to the default values when a connection is first established. Either device can request to update the parameters, the other device will then either its supported values or state it is not supported.</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>Data Exchange in BLE
+<ul>
+<li>GATT operations
+<ul>
+<li>client-initiated: read, write, write without response</li>
+<li>server-initiated: notify, indicate(an acknowledgement is required from client)<br>
+Though the operations initiated by the server, the client is required to enable them first by subscribing the characteristic and enabling either notifications or indications.</li>
+</ul></li>
+<li>ATT layer
+<ul>
+<li>Attributes <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/04/blefund_less4_attribute.png" class="img-fluid">
+<ul>
+<li>Handle: 16-bit unique index in the attribute table assigned by the stack</li>
+<li>UUID: universally unique id tell the attribute type
+<ul>
+<li>First Type: SIG defined 16-bit UUID</li>
+<li>Second Type: vendor-specific 128-bit UUID. Insert custom 16-bit IDs in the base UUID</li>
+</ul></li>
+<li>Permission: sercurity level(encryption and authorization)</li>
+<li>Value: the actual data or the information about other attributes</li>
+</ul></li>
+<li>Services and Characteristics
+<ul>
+<li>Service <img src="https://academy.nordicsemi.com/wp-content/uploads/2023/03/blefund_less4_characteristics_1.png" class="img-fluid" alt="schematic diagram">
+<ul>
+<li>Service declaration attribute: starts a service</li>
+<li>Characteristic definition attribute:
+<ul>
+<li>Characteristic declaration attribute: holds the metadata about the Characteristic value attribute</li>
+<li>Characteristic value attribute: holds the actual user data</li>
+<li>Characteristic descriptor attribute(optional): holds more metadata about the characteristics<br>
+</li>
+<li>CCCD(Client Characteristic Configuration Descriptor): writable for client to enable/disable server-initiated operations notify and indicate</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
 </ul></li>
 </ul>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
