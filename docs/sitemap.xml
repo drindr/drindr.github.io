@@ -5,8 +5,12 @@
     <lastmod>2024-08-24T16:22:28.041Z</lastmod>
   </url>
   <url>
+    <loc>https://blog.drindr.mem/posts/rust-os/async-impls-comparison.html</loc>
+    <lastmod>2025-05-16T17:19:28.921Z</lastmod>
+  </url>
+  <url>
     <loc>https://blog.drindr.mem/posts/bluetooth-low-energy/ble.html</loc>
-    <lastmod>2025-05-05T16:38:42.626Z</lastmod>
+    <lastmod>2025-05-10T12:30:38.545Z</lastmod>
   </url>
   <url>
     <loc>https://blog.drindr.mem/about.html</loc>
@@ -19,5 +23,9 @@
   <url>
     <loc>https://blog.drindr.mem/posts/icp/index.html</loc>
     <lastmod>2025-04-05T15:00:41.824Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.drindr.mem/posts/rust-os/generic-hal.html</loc>
+    <lastmod>2025-05-16T17:17:48.219Z</lastmod>
   </url>
 </urlset>

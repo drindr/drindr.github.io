@@ -2,7 +2,7 @@
 title: "BLE"
 author: "drindr"
 date: "2025-04-05"
-categories: [posts]
+categories: [notes]
 ---
 
 > The BLE protocol is commonly used but complex, so I decided to glance at its framework.

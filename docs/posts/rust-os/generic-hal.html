@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="drindr">
+<meta name="dcterms.date" content="2025-05-10">
 
-<title>About – drin’site</title>
+<title>Rust OS Generic HAL – drin’site</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,22 +25,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3da964b41099b918d02217d76d8a771b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-8ef56b68f8fa1e9d2ba328e99e439f80.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-3da964b41099b918d02217d76d8a771b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,17 +71,17 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">drin’site</span>
     </a>
   </div>
@@ -89,11 +92,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="./index.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -110,39 +113,207 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Rust OS Generic HAL</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">notes</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>drindr </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 10, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     
 <!-- main -->
-<div class="quarto-about-jolla">
-  <img src="profile.svg" class="about-image
-  round " style="height: 15em; width: 15em;">
- <header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">About</h1>
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="现有的rust-os" class="level1">
+<h1>现有的Rust OS</h1>
+<section id="axhal" class="level2">
+<h2 class="anchored" data-anchor-id="axhal">axhal</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<div class="quarto-title-meta">
-  </div>
-</header><main class="content" id="quarto-document-content">
-<section id="who-am-i" class="level2">
-<h2 data-anchor-id="who-am-i">WHO AM I?</h2>
-<p>A Sleepy Student?</p>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<pre>.
+├── arch
+│   ├── aarch64 （arm相关：cortex-m-rt？）
+│   │   └── ...
+│   ├── loongarch64
+│   │   └── ...
+│   ├── mod.rs
+│   ├── riscv （riscv-rt？）
+│   │   └── ...
+│   └── x86_64
+│       └── ...
+├── cpu.rs （core，核心相关）
+├── irq.rs （中断相关）
+├── lib.rs
+├── mem.rs （物理内存管理）
+├── paging.rs （内存分页相关）
+├── platform
+│   └── ... (特定平台的实现)
+├── time.rs 
+├── tls.rs (✖线程内存，应由multitask模块提供？)
+└── trap.rs （特权态相关）
+</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="embedded-hal" class="level2">
+<h2 class="anchored" data-anchor-id="embedded-hal">embedded-hal</h2>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<pre>main crate
+├── delay.rs
+├── digital.rs
+├── i2c.rs
+├── lib.rs
+├── pwm.rs
+└── spi.rs
+
+non-blocking crate
+├── lib.rs
+├── serial.rs
+└── spi.rs
+
+async crate
+├── delay.rs
+├── digital.rs
+├── i2c.rs
+├── lib.rs
+└── spi.rs
+
+bus crate (提供bus的共享实现)
+├── i2c
+│   ├── atomic.rs
+│   ├── critical_section.rs
+│   ├── mod.rs
+│   ├── mutex.rs
+│   ├── rc.rs
+│   └── refcell.rs
+├── lib.rs
+├── spi
+│   └── ... (大致同i2c)
+└── util.rs
+
+can crate （又单独拉出来了一个crate）
+├── blocking.rs
+├── id.rs
+├── lib.rs
+└── nb.rs
+
+io crate (有两个，一个普通、一个async，文件夹结构相同)
+├── impls
+│   ├── boxx.rs
+│   ├── mod.rs
+│   ├── slice_mut.rs
+│   ├── slice_ref.rs
+│   └── vec.rs
+└── lib.rs
+
+io-adapters crate （io-hal 的实现）
+├── fmt.rs （对core::fmt::write的封装）
+├── futures_03.rs （基于futures crate的实现）
+├── lib.rs
+├── std.rs （对std::read/write的封装）
+└── tokio_1.rs （tokio的实现）
+</pre>
+</div>
+</div>
+</div>
+<p>HAL or devicetree?</p>
+</section>
+</section>
+<section id="调度器" class="level1">
+<h1>调度器</h1>
+<section id="rtic" class="level2">
+<h2 class="anchored" data-anchor-id="rtic">RTIC</h2>
+<p><a href="https://github.com/rtic-rs/rtic/tree/master?tab=readme-ov-file#user-content-fnref-1-4684bc6d6d200da7c78b8e35ad802237">repo</a></p>
+<ul>
+<li>硬件任务（由中断驱动）</li>
+<li>软件任务（相同优先级的任务共享一个中断内部使用协程，通过中断优先级来保证任务优先级）</li>
+<li>资源（挺有意思的，隐藏了一些资源共享的操作，可读性更强，更规整）
+<ul>
+<li>local</li>
+<li>share</li>
+<li>通道</li>
+</ul></li>
+<li>monotonics 带有timeout的任务，同优先级的任务还是会有实时性问题</li>
+</ul>
+</section>
+<section id="embassy-preempt" class="level2">
+<h2 class="anchored" data-anchor-id="embassy-preempt">embassy-preempt</h2>
+<p>关于桟的一些思考 连续性？</p>
+<p>如果只是实现FIFO以及高优先级直接抢占的话似乎不需要为每个单独的任务分配桟？ 有意思的点在于通过pendsv似乎可以不再依赖有限的软中断</p>
+<p>但是如果需要时间片相关的调度算法(RoundRobin, 各种CFS)还是需要将桟分开来？</p>
+<p><img src="understanding-fifo-sched.png" class="img-fluid"></p>
+</section>
+<section id="arielos" class="level2">
+<h2 class="anchored" data-anchor-id="arielos">ArielOS</h2>
+<p>粗略看下来更多强调了通过yml等提供的更灵活的可配置性</p>
 
 
 </section>
-</main> 
-  <hr class="about-sep">
-   <div class="about-links">
-  <a href="https://github.com/drindr" class="about-link" rel="" target="">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text">Github</span>
-  </a>
-</div>
-</div>
- <!-- /main -->
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     
