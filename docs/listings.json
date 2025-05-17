@@ -2,7 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/rust-os/generic-hal.html",
+      "/posts/rust-os/async-related-os-and-hal.html",
       "/posts/rust-os/async-impls-comparison.html",
       "/posts/bluetooth-low-energy/ble.html",
       "/posts/icp/index.html",

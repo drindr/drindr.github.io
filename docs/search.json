@@ -39,7 +39,7 @@
     "href": "index.html",
     "title": "Hello?",
     "section": "",
-    "text": "Rust OS Generic HAL\n\n\n\nnotes\n\n\n\n\n\n\n\n\n\nMay 10, 2025\n\n\ndrindr\n\n\n\n\n\n\n\n\n\n\n\n\nasync implementations comparison\n\n\n\nnotes\n\n\n\n\n\n\n\n\n\nMay 9, 2025\n\n\ndrindr\n\n\n\n\n\n\n\n\n\n\n\n\nBLE\n\n\n\nnotes\n\n\n\n\n\n\n\n\n\nApr 5, 2025\n\n\ndrindr\n\n\n\n\n\n\n\n\n\n\n\n\niterative closest point(icp)\n\n\n\nnotes\n\n\n\n\n\n\n\n\n\nOct 20, 2024\n\n\ndrindr\n\n\n\n\n\n\n\n\n\n\n\n\nthe dev environment with systemd-nspawn\n\n\n\nposts\n\n\n\n\n\n\n\n\n\nAug 24, 2024\n\n\ndrindr\n\n\n\n\n\nNo matching items"
+    "text": "Rust Embedded OS and HAL about Async\n\n\n\nnotes\n\n\n\n\n\n\n\n\n\nMay 10, 2025\n\n\ndrindr\n\n\n\n\n\n\n\n\n\n\n\n\nasync implementations comparison\n\n\n\nnotes\n\n\n\n\n\n\n\n\n\nMay 9, 2025\n\n\ndrindr\n\n\n\n\n\n\n\n\n\n\n\n\nBLE\n\n\n\nnotes\n\n\n\n\n\n\n\n\n\nApr 5, 2025\n\n\ndrindr\n\n\n\n\n\n\n\n\n\n\n\n\niterative closest point(icp)\n\n\n\nnotes\n\n\n\n\n\n\n\n\n\nOct 20, 2024\n\n\ndrindr\n\n\n\n\n\n\n\n\n\n\n\n\nthe dev environment with systemd-nspawn\n\n\n\nposts\n\n\n\n\n\n\n\n\n\nAug 24, 2024\n\n\ndrindr\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "posts/icp/index.html",
@@ -56,44 +56,44 @@
     "text": "PART1: Data Association & SVD\n\ndirect and optimal solution: \\(\\sum||y_n - \\bar{x}_n||^2p_n \\rightarrow min\\)\n\nproperties: no initial guess and no better solution exist\nweighted sums: \\(x_0 = \\frac{\\sum x_n p_n}{\\sum p_n}\\) and \\(y_0 = \\frac{\\sum y_n p_n}{\\sum p_n}\\)\ncross-correlation matrix: \\(H = \\sum (y_n - y_0)(x_n - x_0)^T p_n\\)\n\\(svd(H) = UDV^T\\)\n\\(\\Rightarrow R=VU^T, t = y_0 - Rx_0\\)\nuse the local coordinates defined by the point set (set the origin as weighted mean \\(y_0\\))\n\\(\\sum ||(y_n - y_0) - (R x_n + t - y_0)||^2 p_n \\rightarrow min\\)\nstart with \\(\\bar{x}_n - y_0 = Rx_n + t - y_0\\)\nrewrite the translation \\(\\bar{x}n  - y_0 = R(x_n + R^Tt - R^Ty_0)\\)\nintroduce a new variable \\(x_0 = R^Ty_0 - R^Tt\\)\n\\(\\bar{x}_n - y_0 = R(x_n - x_0)\\)\nminimization problem: \\(R^*, x^*_0 = \\underset{R, x_0}{argmin}\\sum || y_n - y_0 - R(x_n - x_0) ||^2 p_n\\)\nobjective function: \\(\\Phi(x_0, R) = \\sum [(y_n - y_0) - R(x_n - x_0)]^T[(y_n - y_0) - R(x_n - x_0)] p_n\\)\nlet \\(\\frac{\\delta \\Phi}{\\delta x_0} = 0 \\Rightarrow x_0 = \\frac{\\sum x_np_n}{p_n}\\)\nthen let \\(\\frac{\\delta \\Phi}{\\delta x_0} = 0 \\Rightarrow R^* = \\underset{R}{argmax}\\sum b_n^TRa_np_n\\) \\((b_n = y_n - y_0, a_n = x_n - x_0)\\)\nusing the trace?: \\(R^* = \\underset{R}{argmax}\\ tr(RH)\\)\n\\(H\\) is the covariance matrix: \\(H = \\sum (a_nb_n^T)p_n\\)"
   },
   {
-    "objectID": "posts/rust-os/generic-hal.html",
-    "href": "posts/rust-os/generic-hal.html",
-    "title": "Rust OS Generic HAL",
+    "objectID": "posts/rust-os/async-related-os-and-hal.html",
+    "href": "posts/rust-os/async-related-os-and-hal.html",
+    "title": "Rust Embedded OS and HAL about Async",
     "section": "",
-    "text": "Note\n\n\n\n\n\n.\n├── arch\n│   ├── aarch64 （arm相关：cortex-m-rt？）\n│   │   └── ...\n│   ├── loongarch64\n│   │   └── ...\n│   ├── mod.rs\n│   ├── riscv （riscv-rt？）\n│   │   └── ...\n│   └── x86_64\n│       └── ...\n├── cpu.rs （core，核心相关）\n├── irq.rs （中断相关）\n├── lib.rs\n├── mem.rs （物理内存管理）\n├── paging.rs （内存分页相关）\n├── platform\n│   └── ... (特定平台的实现)\n├── time.rs \n├── tls.rs (✖线程内存，应由multitask模块提供？)\n└── trap.rs （特权态相关）\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\n\nmain crate\n├── delay.rs\n├── digital.rs\n├── i2c.rs\n├── lib.rs\n├── pwm.rs\n└── spi.rs\n\nnon-blocking crate\n├── lib.rs\n├── serial.rs\n└── spi.rs\n\nasync crate\n├── delay.rs\n├── digital.rs\n├── i2c.rs\n├── lib.rs\n└── spi.rs\n\nbus crate (提供bus的共享实现)\n├── i2c\n│   ├── atomic.rs\n│   ├── critical_section.rs\n│   ├── mod.rs\n│   ├── mutex.rs\n│   ├── rc.rs\n│   └── refcell.rs\n├── lib.rs\n├── spi\n│   └── ... (大致同i2c)\n└── util.rs\n\ncan crate （又单独拉出来了一个crate）\n├── blocking.rs\n├── id.rs\n├── lib.rs\n└── nb.rs\n\nio crate (有两个，一个普通、一个async，文件夹结构相同)\n├── impls\n│   ├── boxx.rs\n│   ├── mod.rs\n│   ├── slice_mut.rs\n│   ├── slice_ref.rs\n│   └── vec.rs\n└── lib.rs\n\nio-adapters crate （io-hal 的实现）\n├── fmt.rs （对core::fmt::write的封装）\n├── futures_03.rs （基于futures crate的实现）\n├── lib.rs\n├── std.rs （对std::read/write的封装）\n└── tokio_1.rs （tokio的实现）\n\n\n\n\nHAL or devicetree?"
+    "text": "Note\n\n\n\n\n\n.\n├── arch\n│   ├── aarch64 （arm相关：cortex-m-rt？）\n│   │   └── ...\n│   ├── loongarch64\n│   │   └── ...\n│   ├── mod.rs\n│   ├── riscv （riscv-rt？）\n│   │   └── ...\n│   └── x86_64\n│       └── ...\n├── cpu.rs （core，核心相关）\n├── irq.rs （中断相关）\n├── lib.rs\n├── mem.rs （物理内存管理）\n├── paging.rs （内存分页相关）\n├── platform\n│   └── ... (特定平台的实现)\n├── time.rs \n├── tls.rs (✖线程内存，应由multitask模块提供？)\n└── trap.rs （特权态相关）\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\n\nmain crate\n├── delay.rs\n├── digital.rs\n├── i2c.rs\n├── lib.rs\n├── pwm.rs\n└── spi.rs\n\nnon-blocking crate\n├── lib.rs\n├── serial.rs\n└── spi.rs\n\nasync crate\n├── delay.rs\n├── digital.rs\n├── i2c.rs\n├── lib.rs\n└── spi.rs\n\nbus crate (提供bus的共享实现)\n├── i2c\n│   ├── atomic.rs\n│   ├── critical_section.rs\n│   ├── mod.rs\n│   ├── mutex.rs\n│   ├── rc.rs\n│   └── refcell.rs\n├── lib.rs\n├── spi\n│   └── ... (大致同i2c)\n└── util.rs\n\ncan crate （又单独拉出来了一个crate）\n├── blocking.rs\n├── id.rs\n├── lib.rs\n└── nb.rs\n\nio crate (有两个，一个普通、一个async，文件夹结构相同)\n├── impls\n│   ├── boxx.rs\n│   ├── mod.rs\n│   ├── slice_mut.rs\n│   ├── slice_ref.rs\n│   └── vec.rs\n└── lib.rs\n\nio-adapters crate （io-hal 的实现）\n├── fmt.rs （对core::fmt::write的封装）\n├── futures_03.rs （基于futures crate的实现）\n├── lib.rs\n├── std.rs （对std::read/write的封装）\n└── tokio_1.rs （tokio的实现）\n\n\n\n\nHAL、devicetree or configuration file?"
   },
   {
-    "objectID": "posts/rust-os/generic-hal.html#axhal",
-    "href": "posts/rust-os/generic-hal.html#axhal",
-    "title": "Rust OS Generic HAL",
+    "objectID": "posts/rust-os/async-related-os-and-hal.html#axhal",
+    "href": "posts/rust-os/async-related-os-and-hal.html#axhal",
+    "title": "Rust Embedded OS and HAL about Async",
     "section": "",
     "text": "Note\n\n\n\n\n\n.\n├── arch\n│   ├── aarch64 （arm相关：cortex-m-rt？）\n│   │   └── ...\n│   ├── loongarch64\n│   │   └── ...\n│   ├── mod.rs\n│   ├── riscv （riscv-rt？）\n│   │   └── ...\n│   └── x86_64\n│       └── ...\n├── cpu.rs （core，核心相关）\n├── irq.rs （中断相关）\n├── lib.rs\n├── mem.rs （物理内存管理）\n├── paging.rs （内存分页相关）\n├── platform\n│   └── ... (特定平台的实现)\n├── time.rs \n├── tls.rs (✖线程内存，应由multitask模块提供？)\n└── trap.rs （特权态相关）"
   },
   {
-    "objectID": "posts/rust-os/generic-hal.html#embedded-hal",
-    "href": "posts/rust-os/generic-hal.html#embedded-hal",
-    "title": "Rust OS Generic HAL",
+    "objectID": "posts/rust-os/async-related-os-and-hal.html#embedded-hal",
+    "href": "posts/rust-os/async-related-os-and-hal.html#embedded-hal",
+    "title": "Rust Embedded OS and HAL about Async",
     "section": "",
-    "text": "Note\n\n\n\n\n\nmain crate\n├── delay.rs\n├── digital.rs\n├── i2c.rs\n├── lib.rs\n├── pwm.rs\n└── spi.rs\n\nnon-blocking crate\n├── lib.rs\n├── serial.rs\n└── spi.rs\n\nasync crate\n├── delay.rs\n├── digital.rs\n├── i2c.rs\n├── lib.rs\n└── spi.rs\n\nbus crate (提供bus的共享实现)\n├── i2c\n│   ├── atomic.rs\n│   ├── critical_section.rs\n│   ├── mod.rs\n│   ├── mutex.rs\n│   ├── rc.rs\n│   └── refcell.rs\n├── lib.rs\n├── spi\n│   └── ... (大致同i2c)\n└── util.rs\n\ncan crate （又单独拉出来了一个crate）\n├── blocking.rs\n├── id.rs\n├── lib.rs\n└── nb.rs\n\nio crate (有两个，一个普通、一个async，文件夹结构相同)\n├── impls\n│   ├── boxx.rs\n│   ├── mod.rs\n│   ├── slice_mut.rs\n│   ├── slice_ref.rs\n│   └── vec.rs\n└── lib.rs\n\nio-adapters crate （io-hal 的实现）\n├── fmt.rs （对core::fmt::write的封装）\n├── futures_03.rs （基于futures crate的实现）\n├── lib.rs\n├── std.rs （对std::read/write的封装）\n└── tokio_1.rs （tokio的实现）\n\n\n\n\nHAL or devicetree?"
+    "text": "Note\n\n\n\n\n\nmain crate\n├── delay.rs\n├── digital.rs\n├── i2c.rs\n├── lib.rs\n├── pwm.rs\n└── spi.rs\n\nnon-blocking crate\n├── lib.rs\n├── serial.rs\n└── spi.rs\n\nasync crate\n├── delay.rs\n├── digital.rs\n├── i2c.rs\n├── lib.rs\n└── spi.rs\n\nbus crate (提供bus的共享实现)\n├── i2c\n│   ├── atomic.rs\n│   ├── critical_section.rs\n│   ├── mod.rs\n│   ├── mutex.rs\n│   ├── rc.rs\n│   └── refcell.rs\n├── lib.rs\n├── spi\n│   └── ... (大致同i2c)\n└── util.rs\n\ncan crate （又单独拉出来了一个crate）\n├── blocking.rs\n├── id.rs\n├── lib.rs\n└── nb.rs\n\nio crate (有两个，一个普通、一个async，文件夹结构相同)\n├── impls\n│   ├── boxx.rs\n│   ├── mod.rs\n│   ├── slice_mut.rs\n│   ├── slice_ref.rs\n│   └── vec.rs\n└── lib.rs\n\nio-adapters crate （io-hal 的实现）\n├── fmt.rs （对core::fmt::write的封装）\n├── futures_03.rs （基于futures crate的实现）\n├── lib.rs\n├── std.rs （对std::read/write的封装）\n└── tokio_1.rs （tokio的实现）\n\n\n\n\nHAL、devicetree or configuration file?"
   },
   {
-    "objectID": "posts/rust-os/generic-hal.html#rtic",
-    "href": "posts/rust-os/generic-hal.html#rtic",
-    "title": "Rust OS Generic HAL",
+    "objectID": "posts/rust-os/async-related-os-and-hal.html#rtic",
+    "href": "posts/rust-os/async-related-os-and-hal.html#rtic",
+    "title": "Rust Embedded OS and HAL about Async",
     "section": "RTIC",
     "text": "RTIC\nrepo\n\n硬件任务（由中断驱动）\n软件任务（相同优先级的任务共享一个中断内部使用协程，通过中断优先级来保证任务优先级）\n资源（挺有意思的，隐藏了一些资源共享的操作，可读性更强，更规整）\n\nlocal\nshare\n通道\n\nmonotonics 带有timeout的任务，同优先级的任务还是会有实时性问题"
   },
   {
-    "objectID": "posts/rust-os/generic-hal.html#embassy-preempt",
-    "href": "posts/rust-os/generic-hal.html#embassy-preempt",
-    "title": "Rust OS Generic HAL",
+    "objectID": "posts/rust-os/async-related-os-and-hal.html#embassy-preempt",
+    "href": "posts/rust-os/async-related-os-and-hal.html#embassy-preempt",
+    "title": "Rust Embedded OS and HAL about Async",
     "section": "embassy-preempt",
     "text": "embassy-preempt\n关于桟的一些思考 连续性？\n如果只是实现FIFO以及高优先级直接抢占的话似乎不需要为每个单独的任务分配桟？ 有意思的点在于通过pendsv似乎可以不再依赖有限的软中断\n但是如果需要时间片相关的调度算法(RoundRobin, 各种CFS)还是需要将桟分开来？"
   },
   {
-    "objectID": "posts/rust-os/generic-hal.html#arielos",
-    "href": "posts/rust-os/generic-hal.html#arielos",
-    "title": "Rust OS Generic HAL",
+    "objectID": "posts/rust-os/async-related-os-and-hal.html#arielos",
+    "href": "posts/rust-os/async-related-os-and-hal.html#arielos",
+    "title": "Rust Embedded OS and HAL about Async",
     "section": "ArielOS",
     "text": "ArielOS\n粗略看下来更多强调了通过yml等提供的更灵活的可配置性"
   }

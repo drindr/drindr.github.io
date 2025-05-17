@@ -12,9 +12,9 @@
 <generator>quarto-1.7.31</generator>
 <lastBuildDate>Fri, 09 May 2025 16:00:00 GMT</lastBuildDate>
 <item>
-  <title>Rust OS Generic HAL</title>
+  <title>Rust Embedded OS and HAL about Async</title>
   <dc:creator>drindr </dc:creator>
-  <link>https://blog.drindr.mem/posts/rust-os/generic-hal.html</link>
+  <link>https://blog.drindr.mem/posts/rust-os/async-related-os-and-hal.html</link>
   <description><![CDATA[ 
 
 
@@ -135,7 +135,7 @@ io-adapters crate （io-hal 的实现）
 </div>
 </div>
 </div>
-<p>HAL or devicetree?</p>
+<p>HAL、devicetree or configuration file?</p>
 </section>
 </section>
 <section id="调度器" class="level1">
@@ -172,7 +172,7 @@ io-adapters crate （io-hal 的实现）
 
  ]]></description>
   <category>notes</category>
-  <guid>https://blog.drindr.mem/posts/rust-os/generic-hal.html</guid>
+  <guid>https://blog.drindr.mem/posts/rust-os/async-related-os-and-hal.html</guid>
   <pubDate>Fri, 09 May 2025 16:00:00 GMT</pubDate>
 </item>
 <item>
