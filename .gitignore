@@ -1,5 +1,2 @@
-/_site
-/.quarto
-/.quarto/
-/.vscode/
-/.python-version
+/build
+/out
