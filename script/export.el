@@ -1,0 +1,73 @@
+(require 'cl-lib)
+(setq export-blog--process
+            '(("md" . #'export-blog--export-md)
+              ("org" . #'export-blog--export-org)))
+
+(defun export-blog
+    (content-folder build-folder export-folder)
+  (let* ((static-folders (directory-files-recursively content-folder "\\`static\\'" t)))
+    (message "found %d static folders" (length static-folders))
+    (dolist (static-folder static-folders)
+      (let* ((relative-path (substring static-folder (length my-project-path))))
+        (copy-directory static-folder (concat export-folder "/" relative-path) t t)
+        (message "exporting static folder %s" relative-path))))
+  (let* ((content-files (directory-files-recursively content-folder "\\.\\(md\\|org\\)\\'"))
+         (active-process-num (length content-files)))
+    (dolist (content-file content-files)
+      (let* ((relative-path (substring content-file (length content-folder)))
+             (from-path content-file)
+             (target-path (concat build-folder "/content" (file-name-sans-extension relative-path) ".html"))
+             (target-meta-path (concat build-folder "/content" (file-name-sans-extension relative-path) ".json"))
+             (file-extension (file-name-extension relative-path)))
+        (message "export %s" relative-path)
+        (make-directory (file-name-directory target-path) t)
+        (let* ((process (funcall (car (last (assoc file-extension export-blog--process))) from-path target-path target-meta-path)))
+          (set-process-sentinel process
+                                (lambda (proc event)
+                                  (cl-decf active-process-num)
+                                  (message "active process %d" active-process-num))))))
+    (while (> active-process-num 0) (sit-for 0.01 nil)))
+  (let* ((built-files (directory-files-recursively build-folder "\\.html\\'"))
+         (active-process-num (length built-files)))
+    (dolist (built-path-html built-files)
+      (let* ((relative-path (substring built-path-html (length build-folder)))
+             (target-path (concat export-folder relative-path))
+             (built-path (file-name-sans-extension built-path-html))
+             (command (format "%sscript/apply-template.ts %s %s %s" my-project-path built-path target-path relative-path)))
+        (message "executing %s" command)
+        (set-process-sentinel
+         (start-process-shell-command "apply-template" nil command)
+         (lambda (proc event)
+                                  (cl-decf active-process-num)
+                                  (message "active process %d" active-process-num)))))
+    (while (> active-process-num 0) (sit-for 0.01 nil))))
+
+(defun export-blog--export-md
+    (from target target-meta)
+  ;; (message "generate from %s to %s, meta: %s" from target target-meta)
+  (let* ((generate-html (format "pandoc --mathjax -o %s %s" target from))
+         (generate-meta (format "pandoc -t json %s | jq -M '.meta|walk(if type == \"object\" and .t == \"MetaInlines\" then (.c[].c) elif (type == \"object\" and .t == \"MetaList\") then (.c) else . end)' > %s" from target-meta))
+         (command (concat generate-html ";" generate-meta)))
+    (message (format "execute: %s" command))
+    (start-process-shell-command (format "export-blog-%s" target) nil command)))
+
+(defun export-blog--export-org
+    (from target)  
+  (message "generate from %s to %s" from target))
+
+(defun export-blog-run
+    ()
+  (let ((content-folder (concat my-project-path "content"))
+        (build-folder (concat my-project-path "build"))
+        (out-folder (concat my-project-path "out")))
+    (make-directory build-folder t)
+    (make-directory out-folder t)
+    (export-blog--prepare-layout)
+    (export-blog content-folder build-folder out-folder)))
+
+(defun export-blog--prepare-layout
+    ()
+  (let* ((command (format "deno --allow-read --allow-write --allow-env sass --no-source-map %s %s" (concat my-project-path "layout/base.scss") (concat my-project-path "out/base.css"))))
+    (message "executing %s" command)
+    (start-process-shell-command "generate-css" nil command))
+  (copy-file (concat my-project-path "layout/profile.svg") (concat my-project-path "out/profile.svg") t))
