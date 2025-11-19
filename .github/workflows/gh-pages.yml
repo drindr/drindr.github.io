@@ -40,6 +40,14 @@ jobs:
           deno-version: v2.5.6
       - name: Dependencies of Deno
         run: deno install "npm:sass"
+      - name: Setup Pandoc
+        uses: pandoc/actions/setup@v1
+        with:
+          version: 3.4
+      - name: Setup jq
+        uses: dcarbone/install-jq-action@v3
+        with:
+          version: '1.8.1'
       - name: Build
         run: make
       - name: Upload artifact
