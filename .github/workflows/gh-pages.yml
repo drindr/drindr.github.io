@@ -31,6 +31,9 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Build
+        uses: purcell/setup-emacs@master
+        with:
+          version: 24.5
         run: make
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
