@@ -1,3 +1,3 @@
-base_url = "drindr.github.io"
+baseurl = "drindr.github.io"
 title = "drin's blog"
-
+navigation = true

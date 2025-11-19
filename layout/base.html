@@ -1,26 +1,28 @@
 <html>
   <head>
-    <title>{{ page.title }} | {{ site.title }}</title>
+    <title>{{ page.title }}{{ #page.title }} | {{ /page.title }}{{ site.title }}</title>
     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="{{{ page.relative_root }}}profile.svg">
     <link rel="stylesheet" href="{{{ page.relative_root }}}base.css">
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/default.min.css"> -->
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
   </head>
   <body>
     <nav>
       <ul>
-        <!-- {{ site.baseurl }}{{ page.url }} -->
-        {{ #site.navigation }}
-        {{ site.baseurl }}{{ entry.url }}
-        {{ #entry.current }}
-        <li class="current"><a href="{{ site.baseurl }}{{ entry.url }}">{{ entry.title }}</a><div id="underline"></li>
-        {{ /entry.current }}
-        {{ ^entry.current }}
-        <li><a href="{{ site.baseurl }}{{ entry.url }}">{{ entry.title }}</a></li>
-        {{ /entry.current }}
-        {{ /site.navigation }}
+        <li><a href="{{{ page.relative_root }}}index.html"><img src="{{{ page.relative_root}}}profile.svg" /></li>
+        {{ #site.toc }}
+        {{ #current }}
+        <li class="current"><a href="{{{ page.relative_root }}}{{ name }}.html">{{ name }}</a><div id="underline"></li>
+        {{ /current }}
+        {{ ^current }}
+        <li><a href="{{{ page.relative_root }}}{{ name }}.html">{{ name }}</a></li>
+        {{ /current }}
+        {{ /site.toc }}
       </ul>
     </nav>
     

@@ -2,8 +2,17 @@ body {
     padding-top: 10px;
 }
 
+@font-face {
+    font-family: 'Maple Mono';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/maple-mono@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/maple-mono@latest/latin-400-normal.woff) format('woff');
+}
+
 body {
-    font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;
+    font-family: Maple Mono;
+    padding-top: 0;
     margin: auto;
     max-width: 70ch;
     color: #ececec;
@@ -116,6 +125,8 @@ nav { /* Navbar, see _includes/navbar.html */
 
     ul {
         display: flex;
+        padding-left: 0;
+        margin-top: 0;
     }
 
     li:hover {
@@ -128,6 +139,10 @@ nav { /* Navbar, see _includes/navbar.html */
 
     li a {
         text-decoration: none;
+        img {
+            width: auto;
+            height: 1.5em;
+        }
     }
 
     li div#underline {
@@ -140,32 +155,11 @@ nav { /* Navbar, see _includes/navbar.html */
     }
 }
 
-pre.highlight {
+.hljs, .hljs-subst {
     background-color: #1F2228;
     padding: 0.5em;
     border-radius: 0.5em;
-
-    code { /* Codeblocks */
-        span.c1 {
-            color: #7f848e;
-        }
-        span.nf, span.o {
-            color: #56b6c2;
-        }
-        span.p, span.mi {
-            color: #d19a66;
-        }
-        span.s, span.sh, span.s2, span.dl {
-            color: #98c379;
-        }
-        span.n {
-            color: #abb2bb;
-        }
-        span.k, span.si, span.sa, span.kd {
-            color: #c678dd;
-        }
-        span.nx, span.p+span.n:has(+span.p) {
-            color: #e5c07b;
-        }
-    }
+    
+    display: block;
+    overflow-x: auto;
 }
