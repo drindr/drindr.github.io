@@ -29,12 +29,11 @@
     (export-blog--generate-toc content-folder toc-file out-folder)
     (export-blog--prepare-layout out-folder)
     (let ((toc (json-read-file toc-file)))
-      (message (json-serialize toc))
+      ;; (message (json-serialize toc))
       (export-blog--run content-folder build-folder out-folder toc-file toc))))
 
 (defun export-blog--run
     (content-folder built-folder export-folder toc-file toc)
-  (message "type is %s" (type-of toc))
   (seq-do (lambda (category)
             (let* ((task-list (cdr (assq 'articles category)))
                    (waiting-tasks (length task-list))
@@ -75,7 +74,9 @@
   (let* ((layout-folder (concat my-project-path "layout"))
          (command (format "deno --allow-read --allow-write --allow-env sass --no-source-map %s %s" (concat layout-folder "/base.scss") (concat out-folder "/base.css"))))
     (message "executing %s" command)
-    (start-process-shell-command "generate-css" nil command)
+    (set-process-sentinel (start-process-shell-command "generate-css" nil command)
+                          (lambda (proc event)
+                            (message "css generate: %s" event)))
     (copy-file (concat layout-folder "/profile.svg") (concat out-folder "/profile.svg") t)))
 
 (defun export-blog--prepare-static
